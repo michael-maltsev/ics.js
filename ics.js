@@ -134,9 +134,11 @@ var ics = function(uidDomain, prodId) {
 
       // Since some calendars don't add 0 second events, we need to remove time if there is none...
       var start_time = '';
-      var end_time = '';
-      if (start_hours + start_minutes + start_seconds + end_hours + end_minutes + end_seconds !== 0) {
+      if (start_hours !== "00" || start_minutes !== "00" || start_seconds !== "00") {
         start_time = 'T' + start_hours + start_minutes + start_seconds;
+      }
+      var end_time = '';
+      if (end_hours !== "00" || end_minutes !== "00" || end_seconds !== "00") {
         end_time = 'T' + end_hours + end_minutes + end_seconds;
       }
       var now_time = 'T' + now_hours + now_minutes + now_seconds;
