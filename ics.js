@@ -12,7 +12,7 @@ var ics = function(uidDomain, prodId, extraHeaders) {
   if (typeof uidDomain === 'undefined') { uidDomain = 'default'; }
   if (typeof prodId === 'undefined') { prodId = 'Calendar'; }
 
-  var SEPARATOR = (navigator.appVersion.indexOf('Win') !== -1) ? '\r\n' : '\n';
+  var SEPARATOR = '\r\n';
   var calendarEvents = [];
   var calendarStart = [
     'BEGIN:VCALENDAR',
