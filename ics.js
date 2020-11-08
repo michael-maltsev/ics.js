@@ -1,7 +1,7 @@
 /* global saveAs, Blob, BlobBuilder, console */
 /* exported ics */
 
-var ics = function(uidDomain, prodId, extraHeaders) {
+var ics = function(uidDomain, prodId, extraHeaders, eventTimezoneId) {
   'use strict';
 
   if (navigator.userAgent.indexOf('MSIE') > -1 && navigator.userAgent.indexOf('MSIE 10') == -1) {
@@ -186,7 +186,11 @@ var ics = function(uidDomain, prodId, extraHeaders) {
       calendarEvent.push('DTSTAMP:' + now);
 
       if (start_time !== '') {
-        calendarEvent.push('DTSTART;VALUE=DATE-TIME:' + start);
+        if (eventTimezoneId) {
+          calendarEvent.push('DTSTART;TZID=' + eventTimezoneId + ':' + start);
+        } else {
+          calendarEvent.push('DTSTART:' + start);
+        }
       } else {
         calendarEvent.push('DTSTART;VALUE=DATE:' + start);
       }
@@ -195,7 +199,11 @@ var ics = function(uidDomain, prodId, extraHeaders) {
       // it's a one day event, and no DTEND is needed.
       // https://stackoverflow.com/a/30249034
       if (end_time !== '') {
-        calendarEvent.push('DTEND;VALUE=DATE-TIME:' + end);
+        if (eventTimezoneId) {
+          calendarEvent.push('DTEND;TZID=' + eventTimezoneId + ':' + end);
+        } else {
+          calendarEvent.push('DTEND:' + end);
+        }
       } else if (end !== start) {
         calendarEvent.push('DTEND;VALUE=DATE:' + end);
       }
